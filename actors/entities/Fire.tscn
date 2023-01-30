@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://i6y1bk3rtj3q"]
+
+[ext_resource type="PackedScene" uid="uid://dl5nlee4q4yuj" path="res://actors/entities/Entity.tscn" id="1_18cyy"]
+[ext_resource type="Script" path="res://actors/entities/Fire.gd" id="2_qqmcf"]
+[ext_resource type="Script" path="res://actors/ActorData.gd" id="3_k7brm"]
+[ext_resource type="Texture2D" uid="uid://dhwfr205iqgve" path="res://assets/EntityTileset.png" id="3_utlhc"]
+
+[sub_resource type="Resource" id="Resource_btaej"]
+script = ExtResource("3_k7brm")
+character_name = "Fire"
+max_hp = 3
+cur_hp = 3
+damage = 1
+speed = 1
+is_flammable = false
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qn3ke"]
+atlas = ExtResource("3_utlhc")
+region = Rect2(0, 0, 8, 8)
+
+[node name="Fire" instance=ExtResource("1_18cyy")]
+script = ExtResource("2_qqmcf")
+is_obstacle = false
+weight = 5.0
+actor_data = SubResource("Resource_btaej")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = SubResource("AtlasTexture_qn3ke")

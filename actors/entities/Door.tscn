@@ -1,0 +1,26 @@
+[gd_scene load_steps=7 format=3 uid="uid://byw00oun6ocf3"]
+
+[ext_resource type="PackedScene" uid="uid://dl5nlee4q4yuj" path="res://actors/entities/Entity.tscn" id="1_m0iyv"]
+[ext_resource type="Script" path="res://actors/entities/Door.gd" id="2_72ocl"]
+[ext_resource type="Script" path="res://actors/ActorData.gd" id="3_ermdx"]
+[ext_resource type="Texture2D" uid="uid://bp57osntunq3c" path="res://assets/DungeonCrawlerTileset.png" id="3_nu7ka"]
+
+[sub_resource type="Resource" id="Resource_jn87h"]
+script = ExtResource("3_ermdx")
+character_name = "Door"
+max_hp = 3
+cur_hp = 3
+damage = 0
+speed = 0
+is_flammable = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jruo6"]
+atlas = ExtResource("3_nu7ka")
+region = Rect2(24, 16, 8, 8)
+
+[node name="Door" instance=ExtResource("1_m0iyv")]
+script = ExtResource("2_72ocl")
+actor_data = SubResource("Resource_jn87h")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = SubResource("AtlasTexture_jruo6")

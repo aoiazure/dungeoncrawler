@@ -1,0 +1,26 @@
+[gd_scene load_steps=7 format=3 uid="uid://xf74rqncjmch"]
+
+[ext_resource type="PackedScene" uid="uid://dl5nlee4q4yuj" path="res://actors/entities/Entity.tscn" id="1_xpyjf"]
+[ext_resource type="Script" path="res://actors/entities/Tree.gd" id="2_1qcge"]
+[ext_resource type="Texture2D" uid="uid://bp57osntunq3c" path="res://assets/DungeonCrawlerTileset.png" id="2_loav5"]
+[ext_resource type="Script" path="res://actors/ActorData.gd" id="3_iwfjc"]
+
+[sub_resource type="Resource" id="Resource_74elu"]
+script = ExtResource("3_iwfjc")
+character_name = "Tree"
+max_hp = 3
+cur_hp = 3
+damage = 0
+speed = 0
+is_flammable = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2nad"]
+atlas = ExtResource("2_loav5")
+region = Rect2(8, 24, 8, 8)
+
+[node name="Tree" instance=ExtResource("1_xpyjf")]
+script = ExtResource("2_1qcge")
+actor_data = SubResource("Resource_74elu")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = SubResource("AtlasTexture_a2nad")

@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://bcskd8c616gd7"]
+
+[ext_resource type="PackedScene" uid="uid://dl5nlee4q4yuj" path="res://actors/entities/Entity.tscn" id="1_r3uun"]
+[ext_resource type="Texture2D" uid="uid://dgciidh2gjsu" path="res://assets/colored_tilemap_packed.png" id="2_d35ph"]
+[ext_resource type="Script" path="res://actors/entities/Crate.gd" id="2_ddg8x"]
+[ext_resource type="Script" path="res://actors/ActorData.gd" id="3_xcyea"]
+
+[sub_resource type="Resource" id="Resource_6t4jc"]
+script = ExtResource("3_xcyea")
+character_name = "Crate"
+max_hp = 3
+cur_hp = 3
+damage = 0
+speed = 0
+is_flammable = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ek51"]
+atlas = ExtResource("2_d35ph")
+region = Rect2(16, 8, 8, 8)
+
+[node name="Crate" instance=ExtResource("1_r3uun")]
+script = ExtResource("2_ddg8x")
+weight = 3.0
+actor_data = SubResource("Resource_6t4jc")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = SubResource("AtlasTexture_0ek51")

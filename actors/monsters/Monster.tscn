@@ -1,0 +1,26 @@
+[gd_scene load_steps=7 format=3 uid="uid://wm4k2vc1h4ad"]
+
+[ext_resource type="PackedScene" path="res://actors/Actor.tscn" id="1_0ifth"]
+[ext_resource type="Script" path="res://actors/monsters/Monster.gd" id="2_h6qm1"]
+[ext_resource type="Texture2D" uid="uid://dgciidh2gjsu" path="res://assets/colored_tilemap_packed.png" id="3_grfo4"]
+[ext_resource type="Script" path="res://actors/ActorData.gd" id="3_sch2s"]
+
+[sub_resource type="Resource" id="Resource_7t3ak"]
+script = ExtResource("3_sch2s")
+character_name = "Monster"
+max_hp = 5
+cur_hp = 5
+damage = 1
+speed = 2
+is_flammable = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vdd5l"]
+atlas = ExtResource("3_grfo4")
+region = Rect2(80, 0, 8, 8)
+
+[node name="Monster" instance=ExtResource("1_0ifth")]
+script = ExtResource("2_h6qm1")
+actor_data = SubResource("Resource_7t3ak")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = SubResource("AtlasTexture_vdd5l")

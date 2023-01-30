@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://uw567lc4g0w6"]
+
+[ext_resource type="PackedScene" path="res://actors/Actor.tscn" id="1_xdmk6"]
+[ext_resource type="Script" path="res://actors/projectiles/Projectile.gd" id="2_thdl3"]
+[ext_resource type="Texture2D" uid="uid://4ndfvhbj4gk5" path="res://assets/projectiles_set.png" id="3_flxsi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vkvm4"]
+atlas = ExtResource("3_flxsi")
+region = Rect2(0, 0, 8, 8)
+
+[node name="Projectile" instance=ExtResource("1_xdmk6")]
+script = ExtResource("2_thdl3")
+lifetime = -1
+
+[node name="Sprite2D" parent="." index="0"]
+texture = SubResource("AtlasTexture_vkvm4")

@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://s2osg35wn3q1"]
+
+[ext_resource type="PackedScene" uid="uid://uw567lc4g0w6" path="res://actors/projectiles/Projectile.tscn" id="1_yx8od"]
+[ext_resource type="Script" path="res://actors/projectiles/Arrow.gd" id="2_sadxt"]
+[ext_resource type="Script" path="res://actors/ActorData.gd" id="3_gwcya"]
+
+[sub_resource type="Resource" id="Resource_ajltw"]
+script = ExtResource("3_gwcya")
+character_name = "Arrow"
+max_hp = 1
+cur_hp = 1
+damage = 1
+speed = 15
+is_flammable = true
+
+[node name="Arrow" instance=ExtResource("1_yx8od")]
+script = ExtResource("2_sadxt")
+lifetime = 8
+actor_data = SubResource("Resource_ajltw")

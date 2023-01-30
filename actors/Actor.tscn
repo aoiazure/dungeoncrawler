@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://dts384ov7p5wr"]
+
+[ext_resource type="Script" path="res://actors/Actor.gd" id="1_lngcx"]
+[ext_resource type="Texture2D" uid="uid://dgciidh2gjsu" path="res://assets/colored_tilemap_packed.png" id="2_bqrf6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8p6j"]
+atlas = ExtResource("2_bqrf6")
+region = Rect2(80, 0, 8, 8)
+
+[node name="Actor" type="Node2D"]
+script = ExtResource("1_lngcx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_p8p6j")
