@@ -11,7 +11,6 @@ extends Node
 @onready var hidemap: TileMap = $HideMap
 
 @onready var architect: Architect = $Architect
-@onready var fov: Fov = $Fov
 
 @onready var actor_holder: Node2D = $Actors
 @onready var entity_holder: Node2D = $Entities
@@ -27,6 +26,7 @@ var _current_actor: int = 0
 
 var _cells: Dictionary = {}
 
+var _mrpas: MRPAS
 
 
 ## Set up necessities
@@ -46,20 +46,20 @@ func create_gamespace(rooms_min: int = 3, rooms_max: int = 5) -> void:
 	camera.limit_right = grid.size.x * grid.cell_size.x
 	camera.limit_bottom = grid.size.y * grid.cell_size.y
 	# Generate world
-#	(architect as Architect).generate_dungeon(rooms_min, rooms_max)
+	(architect as Architect).generate_dungeon(rooms_min, rooms_max)
 #	(architect as Architect).generate_world(false)
 	create_cells()
 	
 	create_objects()
 	
-	create_actor(ActorPaths.PLAYER, Vector2i(2, 5))
-#	create_actor(ActorPaths.PLAYER, find_empty_tile())
-#	create_actor(ActorPaths.MONSTER, find_empty_tile())
+	create_actor(ActorPaths.PLAYER, find_empty_tile())
+	create_actor(ActorPaths.MONSTER, find_empty_tile())
 	
 	player = get_node("Actors/Player")
 	camera.target = player
-	
-
+	# Create and reiterate on fov
+	_populate_mrpas()
+	_compute_field_of_view()
 
 
 func clear_actors() -> void:
@@ -68,8 +68,28 @@ func clear_actors() -> void:
 	for a in actor_holder.get_children():
 		a.queue_free()
 
+func _populate_mrpas() -> void:
+	_mrpas = MRPAS.new()
+	for y in range(grid.size.y):
+		for x in range(grid.size.x):
+			var coord:= Vector2i(x, y)
+			var cell: Cell = get_cell(coord)
+			if coord == player.cell:
+				_mrpas.set_transparent(coord, true)
+				continue
+			_mrpas.set_transparent(coord, not cell.is_occupied())
 
-
+func _compute_field_of_view() -> void:
+	# wipe, restart
+	_mrpas.clear_field_of_view()
+	
+	_mrpas.compute_field_of_view(player.cell, max(grid.size.x, grid.size.y) as int)
+	
+	for y in range(grid.size.y):
+		for x in range(grid.size.x):
+			var coord:= Vector2(x, y)
+			# Set visibility of tile
+			remove_hide(coord) if _mrpas.is_in_view(coord) else place_hide(coord)
 
 
 
@@ -120,7 +140,8 @@ func _process(_delta):
 	# Actor done, loop to the next actor cyclically
 	_current_actor = (_current_actor + 1) % actors.size()
 	# update vis
-	fov.refresh(player.cell)
+	_populate_mrpas()
+	_compute_field_of_view()
 	set_process(true)
 
 

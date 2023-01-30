@@ -5,6 +5,8 @@ var game: Game
 var cell: Vector2i = Vector2i(-1, -1)
 var tile: Architect.Tiles = Architect.Tiles.EMPTY
 
+var is_visible: bool = false
+
 var occupants: Array
 
 # Set up the occupants
@@ -104,9 +106,12 @@ func get_adjacent_cells() -> Array:
 
 
 
-func is_obstruction() -> bool:
-	return is_occupied_movement()
-
+# Returns if Cell is visible
+func get_is_visible() -> bool:
+	return is_visible
+# Set cell visibility
+func set_is_visible(vis: bool) -> void:
+	is_visible = vis
 
 
 
@@ -122,10 +127,13 @@ func is_occupied_movement() -> bool:
 	for o in occupants:
 		if o == null:
 			continue
-		if o is Actor:
+		if o is Entity:
+			if (o as Entity).is_obstacle:
+				occupied = true
+				break
+		elif o is Actor:
 			occupied = true
-		if o is Entity and (o as Entity).is_obstacle:
-			occupied = true
+			break
 	
 	return occupied
 
@@ -133,7 +141,7 @@ func is_occupied_movement() -> bool:
 func is_occupied_pathfinding() -> bool:
 	var occupied: bool = false
 	match tile:
-		Architect.Tiles.EMPTY, Architect.Tiles.TREE, Architect.Tiles.WALL:
+		Architect.Tiles.EMPTY, Architect.Tiles.WALL:
 			occupied = true
 	
 	return occupied
